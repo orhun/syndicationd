@@ -75,6 +75,7 @@ async fn main() {
             cli::Command::Clear(clear) => clear.run(),
             cli::Command::Check(check) => check.run(endpoint).await,
             cli::Command::Export(export) => export.run(endpoint).await,
+            cli::Command::Import(import) => import.run(endpoint).await,
         };
 
         std::process::exit(exit_code);

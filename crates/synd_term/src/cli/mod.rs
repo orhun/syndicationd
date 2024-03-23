@@ -9,6 +9,7 @@ use crate::config;
 mod check;
 mod clear;
 mod export;
+mod import;
 
 #[derive(Copy, Clone, PartialEq, Eq, Debug, clap::ValueEnum)]
 pub enum Palette {
@@ -88,6 +89,7 @@ pub enum Command {
     Clear(clear::ClearCommand),
     Check(check::CheckCommand),
     Export(export::ExportCommand),
+    Import(import::ImportCommand),
 }
 
 pub fn parse() -> Args {
