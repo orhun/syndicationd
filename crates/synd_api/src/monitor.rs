@@ -1,5 +1,6 @@
 use tokio_metrics::TaskMonitor;
 
+#[derive(Clone)]
 pub struct Monitors {
     pub gql: TaskMonitor,
 }

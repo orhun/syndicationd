@@ -129,12 +129,15 @@ fn init_runtime_monitor() -> Monitors {
         .zip(task_monitors.gql.intervals());
     tokio::spawn(async move {
         for (runtime_metrics, gql_metrics) in intervals {
-            metric!(counter.runtime.poll = runtime_metrics.total_polls_count);
+            // total_xxx metrics seems to not reset over interval(=monotonic)
+            metric!(monotonic_counter.runtime.poll = runtime_metrics.total_polls_count);
             metric!(
-                counter.runtime.busy_duration = runtime_metrics.total_busy_duration.as_secs_f64()
+                monotonic_counter.runtime.busy_duration =
+                    runtime_metrics.total_busy_duration.as_secs_f64()
             );
             metric!(
-                counter.task.graphql.idle_duration = gql_metrics.total_idle_duration.as_secs_f64()
+                monotonic_counter.task.graphql.idle_duration =
+                    gql_metrics.total_idle_duration.as_secs_f64()
             );
 
             tokio::time::sleep(Duration::from_secs(60)).await;
